@@ -8,7 +8,7 @@ let money,
     expensesValue = document.querySelector('.expenses-value'),
     optionalExpensesValue = document.querySelector('.optionalexpenses-value'),
     expensesItems = document.querySelectorAll('.expenses-item'),
-    optionalExpensesItem = document.getElementsByClassName('optionalexpenses-item'),
+    optionalExpensesItem = document.querySelectorAll('.optionalexpenses-item'),
     incomeValue = document.querySelector('.income-value'),
     checkSavings = document.getElementById('savings'),
     sumValue = document.querySelector('#sum'),
@@ -33,11 +33,8 @@ startBtn.addEventListener('click', function () {
     appData.budget = money;
     appData.timeData = time;
     budgetValue.textContent = money.toFixed();
-    // year.value = new Data(Date.parse(time)).getFullYear();   //как в уроке не работает (((
     year.value = new Date(time).getFullYear();
-    // month.value = new Data(Date.parse(time)).getMonth() + 1;
     month.value = new Date(time).getMonth() + 1;
-    // day.value = new Data(Date.parse(time)).getDate();
     day.value = new Date(time).getDate();
 });
 
@@ -52,6 +49,20 @@ expensesItems.forEach(function (element, i) {
         }
     });
 });
+
+for (let i = 0; i < optionalExpensesItem.length; i++) {
+    optionalExpensesItem[i].addEventListener('keyup', function () {
+        let x = optionalExpensesItem[i].value.charCodeAt(0);
+        if (x < 122) {
+            alert('Только русские слова!');
+        }
+    });
+}
+
+for (let i = 0; i < expensesItems.length; i++) {
+    expensesItems[++i];
+    expensesItems[i].type = 'number';
+}
 
 expensesBtn.addEventListener('click', function () {
     let sum = 0;
@@ -75,10 +86,11 @@ expensesBtn.addEventListener('click', function () {
     }
 });
 
+
 optionalExpensesBtn.addEventListener('click', function () {
+    optionalExpensesValue.textContent = '';
     for (let i = 0; i < optionalExpensesItem.length; i++) {
         let opt = optionalExpensesItem[i].value;
-
 
         if ((typeof (opt)) === 'string' &&
             typeof (opt) != '' &&
